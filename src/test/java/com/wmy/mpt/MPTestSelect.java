@@ -30,7 +30,7 @@ public class MPTestSelect extends BaseSpringJunitTest {
     }
 
     @Test
-    /*selectById 参数只能是序列化的参数，String 不可以,MP*/
+    /*selectById  主键为id 参数只能是序列化的参数，String 不可以,MP*/
     public void testById(){
         User user = userService.selectById("1");
         System.out.println(JSON.toJSONString(user));

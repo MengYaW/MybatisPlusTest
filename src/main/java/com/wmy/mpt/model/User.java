@@ -25,6 +25,7 @@ public class User {
     /**
      * 姓名
      */
+    //@TableId(value="name", type= IdType.ID_WORKER)
     private String name;
     /**
      * 昵称

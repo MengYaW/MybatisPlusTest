@@ -31,7 +31,6 @@ public class MPTestInsert extends BaseSpringJunitTest{
         u.setPassword("111112");
         userService.insert(u);
         systemArgs(u.getId());
-
     }
 
     @Test

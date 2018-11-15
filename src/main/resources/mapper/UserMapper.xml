@@ -13,7 +13,7 @@
         from sys_user
         <where>
             <if test="name!=null and name != '' ">
-                name = #{name}
+               and name = #{name}
             </if>
             <if test="password != null and password != ''">
                AND password LIKE concat('%',#{password},'%')
