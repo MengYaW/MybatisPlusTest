@@ -17,4 +17,8 @@ public interface UserService extends IService<User> {
     void updateMap(List<Map<String, String>> maps, String email);
 
     void deleteByMapOneSelf(Map<String, Object> condition);
+
+    String getTimestamp(String param,Integer param2);
+
+    String getTimestampBymap(Map<String, String> map);
 }

@@ -78,13 +78,39 @@ public class MPTestSelect extends BaseSpringJunitTest {
 
     @Test
     /*手动编写，参数map,单个数据 接收类型map*/
-    public void testSelectByMap(){
+    public void testSelectByMap() throws InterruptedException {
         Map<String,String> map = new LinkedCaseInsensitiveMap<>();
         map.put("email","qq.com");
         map.put("password","密码");
         /*map.put("name","张三");*/
         List<Map<String,Object>> userList = userService.selectByMapOneself(map);
         super.system(userList);
+        Thread.sleep(2000);
+        List<Map<String,Object>> userListTwo = userService.selectByMapOneself(map);
+        super.system(userListTwo);
     }
+
+    /*简单的缓存测试*/
+    @Test
+    public void getTimestampTest() throws InterruptedException{
+        System.out.println("第一次调用：" + userService.getTimestamp("param",1));
+        Thread.sleep(2000);
+        System.out.println("2秒之后调用：" + userService.getTimestamp("param",1));
+        Thread.sleep(11000);
+        System.out.println("再过11秒之后调用：" + userService.getTimestamp("param",1));
+    }
+
+    @Test
+    public void getTimestampTestBymap() throws InterruptedException{
+        Map<String,String> map = new HashMap<>();
+        map.put("param","param");
+        System.out.println("第一次调用：" + userService.getTimestampBymap(map));
+        Thread.sleep(2000);
+        System.out.println("2秒之后调用：" + userService.getTimestampBymap(map));
+        Thread.sleep(11000);
+        System.out.println("再过11秒之后调用：" + userService.getTimestampBymap(map));
+    }
+
+
 
 }
