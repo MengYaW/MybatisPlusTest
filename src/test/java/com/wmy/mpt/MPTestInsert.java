@@ -65,7 +65,7 @@ public class MPTestInsert extends BaseSpringJunitTest{
     @Test
     /*单个插入*/
     public void testMapInsert(){
-        Map<String,String> mapS = new LinkedCaseInsensitiveMap<>();
+        Map<String,Object> mapS = new LinkedCaseInsensitiveMap<>();
         mapS.put("id","09");
         mapS.put("name","手动查入");
         mapS.put("nickname","map");

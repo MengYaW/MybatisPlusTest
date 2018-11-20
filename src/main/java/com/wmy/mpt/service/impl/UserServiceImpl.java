@@ -21,10 +21,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     UserMapper userMapper;
 
     @Override
-    @Cacheable(value = CacheName.CACHENAME,key = "'"+ CacheKey.SINGLE_USER_NAME +"'+ # map.get('password')")
+    @Cacheable(value = CacheName.CACHENAME,key = "'"+ CacheKey.ALL_USER_NAME +"'+ #map.get('password')")
     public List<Map<String, Object>> selectByMapOneself(Map<String, String> map) {
         return userMapper.selectByMapOneSelf(map);
     }
+
+    @Override
+    @Cacheable(value = CacheName.CACHENAME,key = "'"+ CacheKey.SINGLE_USER_NAME +"'+ #map.get('password')")
+    public Map<String, Object> singleSelectByMap(Map<String, Object> map) {
+        return userMapper.singleSelectByMap(map);
+    }
+
+    @Override
+    @CachePut(value = CacheName.CACHENAME,key = "'"+ CacheKey.SINGLE_USER_NAME +"'+ #mapS.get('password')")
+    public Map<String, Object> inseryMap(Map<String, Object> mapS) {
+        userMapper.insertMap(mapS);
+        return mapS;
+    }
+
+    @Override
+    /*批量插入不适合做缓存*/
+    public void insertB(List<Map<String, String>> maps) {
+        userMapper.insertB(maps);
+    }
+
+    @Override
+    @CacheEvict(value = CacheName.CACHENAME,allEntries = true)
+    public void updateMap(List<Map<String, Object>> maps,String email) {
+        userMapper.updateMap(maps,email);
+    }
+
+    @Override
+    @CacheEvict(value = CacheName.CACHENAME,allEntries = true)
+    public void deleteByMapOneSelf(Map<String, Object> condition) {
+        userMapper.deleteByMapOnseSelf(condition);
+    }
+
+    /*------------------------------------简单的缓存测试--------------------------------------------*/
 
     @Cacheable(value= CacheName.CACHENAME,key="#param")
     public String getTimestamp(String param,Integer param2) {
@@ -37,28 +70,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     public String getTimestampBymap(Map<String, String> map) {
         Long timestamp = System.currentTimeMillis();
         return timestamp.toString();
-    }
-
-    @Override
-    @CachePut(value = CacheName.CACHENAME,key = "'"+ CacheKey.SINGLE_USER_NAME +"'+ #map.get('password')")
-    public void inseryMap(Map<String, String> mapS) {
-        userMapper.insertMap(mapS);
-    }
-
-    @Override
-    public void insertB(List<Map<String, String>> maps) {
-        userMapper.insertB(maps);
-    }
-
-    @Override
-    @CacheEvict(value = CacheName.CACHENAME)
-    public void updateMap(List<Map<String, String>> maps,String email) {
-        userMapper.updateMap(maps,email);
-    }
-
-    @Override
-    @CacheEvict(value = CacheName.CACHENAME)
-    public void deleteByMapOneSelf(Map<String, Object> condition) {
-        userMapper.deleteByMapOnseSelf(condition);
     }
 }

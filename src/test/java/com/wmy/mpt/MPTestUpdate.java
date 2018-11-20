@@ -41,9 +41,9 @@ public class MPTestUpdate extends BaseSpringJunitTest {
     @Test
     /*通过模糊条件，map更新数据*/
     public void testUpdateMap(){
-        List<Map<String,String>> maps = new ArrayList<>();
+        List<Map<String,Object>> maps = new ArrayList<>();
         for (int i = 0; i < 5; i++){
-            Map<String,String> map = new LinkedCaseInsensitiveMap<>();
+            Map<String,Object> map = new LinkedCaseInsensitiveMap<>();
             map.put("password","22222222");
             maps.add(map);
         }

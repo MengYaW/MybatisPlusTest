@@ -10,11 +10,13 @@ import java.util.Map;
 public interface UserMapper extends BaseMapper<User>{
     List<Map<String,Object>> selectByMapOneSelf(Map<String, String> map);
 
-    void insertMap(Map<String, String> mapS);
+    void insertMap(Map<String, Object> mapS);
 
     void insertB(List<Map<String, String>> maps);
 
-    void updateMap(@Param("list") List<Map<String, String>> maps, @Param("email") String email);
+    void updateMap(@Param("list") List<Map<String, Object>> maps, @Param("email") String email);
 
     void deleteByMapOnseSelf(Map<String, Object> condition);
+
+    Map<String,Object> singleSelectByMap(Map<String, Object> map);
 }
